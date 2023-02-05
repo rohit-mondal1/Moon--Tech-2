@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import ProductCard from "../../components/ProductCard";
+import { Add_filter } from "../../redux/actions/FilterAction";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+
+  const dispach = useDispatch()
 
   useEffect(() => {
     fetch("http://localhost:5000/products")
       .then((res) => res.json())
       .then((data) => setProducts(data.data));
   }, []);
+
+  console.log(products);
 
   const activeClass = "text-white  bg-indigo-500 border-white";
 
@@ -20,15 +26,15 @@ const Home = () => {
         >
           In Stock
         </button>
-        <button className={`border px-3 py-2 rounded-full font-semibold`}>
+        <button onClick={()=>dispach(Add_filter('AMD'))} className={`border px-3 py-2 rounded-full font-semibold`}>
           AMD
         </button>
-        <button className={`border px-3 py-2 rounded-full font-semibold`}>
+        <button onClick={()=>dispach(Add_filter('Intel'))} className={`border px-3 py-2 rounded-full font-semibold`}>
           Intel
         </button>
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14'>
-        {products.map((product) => (
+        {products?.map((product) => (
           <ProductCard key={product.model} product={product} />
         ))}
       </div>
