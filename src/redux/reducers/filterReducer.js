@@ -1,4 +1,4 @@
-import { togol_Brand, togol_stock } from "../actionTypes/actionTypes";
+import { togol_Brand } from "../actionTypes/actionTypes";
 const intuilValue = {
   filter: {
     brand: [],
@@ -10,16 +10,32 @@ const intuilValue = {
 export const filterReducer = (state = intuilValue, action) => {
   switch (action.type) {
     case togol_Brand:
+      if (!state.filter.brand.includes(action.payload)) {
+        return {
+          ...state,
+          filter: {
+            brand: [...state.filter.brand, action.payload],
+            stoke: state.filter.stoke,
+          },
+        };
+      } else {
+        return {
+          ...state,
+          filter: {
+            brand: [state.filter.brand.filter((b) => b !== action.payload)],
+            stoke: state.filter.stoke,
+          },
+        };
+      }
+
+    case "toggle_stock":
       return {
         ...state,
         filter: {
-          brand: [...state.filter.brand, action.paylode],
-          stoke: state.filter.stoke,
-        },
-        keywords: "",
+          brand: state.filter.brand,
+          stoke: !state.filter.stoke,
+        },  
       };
-    case togol_stock:
-      return;
 
     default:
       return state;

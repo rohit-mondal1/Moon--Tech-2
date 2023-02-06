@@ -7,7 +7,7 @@ export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
 // find
 
 export const togol_Brand = 'togol_Brand'
-export const togol_stock = 'togol_stock'
+
 
 
 
